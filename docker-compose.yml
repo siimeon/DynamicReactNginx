@@ -1,0 +1,21 @@
+version: "3.6"
+
+services:
+  development:
+    build:
+      context: .
+      target: node
+    command: npm start
+    ports:
+      - 3000:3000
+    environment:
+      API_ENDPOINT: 'http://compose-override.local'
+
+  production:
+    build:
+      context: .
+      target: deployment
+    ports:
+      - 80:80
+    environment:
+      API_ENDPOINT: 'https://backend.composer-override.com'
