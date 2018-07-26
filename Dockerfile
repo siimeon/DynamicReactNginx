@@ -11,12 +11,12 @@ COPY --from=node /usr/src/app/ .
 RUN mkdir -p build
 RUN yarn build
 
-FROM nginx:stable as deployment
-RUN rm /etc/nginx/conf.d/default.conf
+FROM nginx:stable-alpine as deployment
+RUN apk add --update bash && rm -rf /var/cache/apk/*
 # Entrypoint script
 COPY ./nginx/entrypoint.sh /usr/local/bin/entrypoint
 # Nginx config file template
-COPY ./nginx/default.conf.template /etc/nginx/conf.d/default.conf.template
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 # React app code
 COPY --from=builder /usr/src/app/build/ /usr/share/nginx/html/
 # NGINX VARIABLES

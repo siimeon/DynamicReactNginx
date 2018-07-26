@@ -62,7 +62,7 @@ const REACT_APP = /^REACT_APP_/i;
 
 const environmentVariable = (variableName) => {
   if (process.env.NODE_ENV === 'production') {
-    return '$' + variableName
+    return '%%variable%%' + variableName + '%%variable%%'
   }
   return process.env[variableName]
 };
